@@ -15,31 +15,31 @@ namespace SigmaAPI.Controllers
             {
                 Id = 1,
                 Name = "Bilgisayar",
-                Price = 5.00
+                Price = 10000.00
             },
             new Product
             {
-                Id = 1,
-                Name = "Bilgisayar",
-                Price = 5.00
+                Id = 2,
+                Name = "Telefon",
+                Price = 7000.00
             },
             new Product
             {
-                Id = 1,
-                Name = "Bilgisayar",
-                Price = 5.00
+                Id = 3,
+                Name = "Cüzdan",
+                Price = 100.00
             },
             new Product
             {
-                Id = 1,
-                Name = "Bilgisayar",
-                Price = 5.00
+                Id = 4,
+                Name = "Ayakkabı",
+                Price = 300.00
             },
             new Product
             {
-                Id = 1,
-                Name = "Bilgisayar",
-                Price = 5.00
+                Id = 5,
+                Name = "Pantolon",
+                Price = 200.00
             },
         };
 

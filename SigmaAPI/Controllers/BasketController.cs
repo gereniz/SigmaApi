@@ -13,7 +13,8 @@ namespace SigmaAPI.Controllers
     [ApiController]
     public class BasketController : ControllerBase
     {
-
+        static double euro=0;
+        bool isEuro = true;
         //Cüzdan
         static Wallet wallets = new Wallet
         {
@@ -42,16 +43,14 @@ namespace SigmaAPI.Controllers
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
 
+            
             string json = client.DownloadString(url);
-
-
-            var liste = JsonConvert.DeserializeObject<List<Item>>(@json);
-
+           
+            string a = json.Substring(87,json.Length-89);
+            
+            euro = Convert.ToDouble(a);
 
             return json;
-            
-
-
         }
 
 
@@ -62,6 +61,14 @@ namespace SigmaAPI.Controllers
         public Basket GetAll()
         {
             GetApiDate();
+            if(isEuro == true)
+            {
+                foreach(var p in productList)
+                {
+                    p.Price = p.Price / euro;
+                }
+                wallets.SumPrice = wallets.SumPrice / euro;
+            }
             return basket;
         }
         
@@ -69,14 +76,12 @@ namespace SigmaAPI.Controllers
         [HttpPost("add")]
         public Basket Add([FromBody] Product newProduct)
         {
-            
+          
             product.Id = newProduct.Id;
             product.Name = newProduct.Name;
             product.Price = newProduct.Price;
             wallets.SumPrice += newProduct.Price;
-
             productList.Add(product);
-
             basket.products = productList;
             basket.wallet = wallets;
             
@@ -89,6 +94,7 @@ namespace SigmaAPI.Controllers
         [HttpDelete("remove")]
         public Basket Delete(int id)
         {
+
             var item = basket.products.SingleOrDefault(b => b.Id == id);
             basket.products.Remove(item);
             basket.wallet.SumPrice -= item.Price;
